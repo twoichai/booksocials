@@ -2,10 +2,8 @@ package com.twoichai.booksocials.user;
 
 import com.twoichai.booksocials.role.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,12 +18,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
+@Setter
+@SuperBuilder
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
+@Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
 
@@ -94,7 +94,7 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
-    private String fullName() {
+    public String getFullName() {
         return firstName + " " + lastName;
     }
 }
