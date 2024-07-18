@@ -1,7 +1,8 @@
 package com.twoichai.booksocials.email;
 
-import java.awt.*;
+import lombok.Getter;
 
+@Getter
 public enum EmailTemplateName {
 
     ACTIVATE_ACCOUNT("activate_account");
