@@ -1,24 +1,17 @@
 package com.twoichai.booksocials.auth;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Locale;
-
 @Getter
 @Setter
 @Builder
-public class RegistrationRequest {
-
-    @NotEmpty(message = "Firstname is mandatory")
-    @NotNull(message = "Firstname is mandatory")
-    private String firstname;
-    @NotEmpty(message = "Lastname is mandatory")
-    @NotNull(message = "Lastname is mandatory")
-    private String lastname;
+public class AuthenticationRequest {
 
     @Email(message = "Email is not well formatted")
     @NotEmpty(message = "Email is mandatory")

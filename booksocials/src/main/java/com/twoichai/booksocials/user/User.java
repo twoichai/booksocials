@@ -12,49 +12,47 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
+
+import static jakarta.persistence.FetchType.EAGER;
+
 
 @Getter
 @Setter
 @SuperBuilder
-@Builder
-@Entity
+//@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
 
     @Id
     @GeneratedValue
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private Locale dateOfBirth;
+    private Integer id;
+    private String firstname;
+    private String lastname;
+    private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;
     private String password;
     private boolean accountLocked;
     private boolean enabled;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = EAGER)
     private List<Role> roles;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
-
-    @Override
-    public String getName() {
-        return email;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -94,7 +92,16 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
+    public String fullName() {
+        return getFirstname() + " " + getLastname();
+    }
+
+    @Override
+    public String getName() {
+        return email;
+    }
+
     public String getFullName() {
-        return firstName + " " + lastName;
+        return firstname + " " + lastname;
     }
 }

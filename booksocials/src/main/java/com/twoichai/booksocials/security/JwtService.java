@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// generates the token; extract data from tokens; decodes tokens; validates tokens
 @Service
 public class JwtService {
     @Value("${application.security.jwt.secret-key}")
@@ -31,7 +32,8 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(
+            UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
