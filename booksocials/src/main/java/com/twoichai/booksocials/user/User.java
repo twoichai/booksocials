@@ -1,6 +1,7 @@
 package com.twoichai.booksocials.user;
 
 import com.twoichai.booksocials.book.Book;
+import com.twoichai.booksocials.history.BookTransactionHistory;
 import com.twoichai.booksocials.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,6 +51,9 @@ public class User implements UserDetails, Principal {
 
     @OneToMany(mappedBy = "owner")
     private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
